@@ -5,7 +5,7 @@ require_relative 'Driver'
 require_relative 'City'
 # This is the class to test our city object.
 class CityTest< Minitest::Test
-  
+
   # UNIT TESTS
   # for method gets_new_direction()
   # Checks if they include all possible directions per location.
@@ -59,7 +59,7 @@ class CityTest< Minitest::Test
   # the correct output for each location is returned into the
   # new location variable.
   def test_gets_just_direction
-    city = City.new()
+    city = Going.new()
     assert_equal 'Cathedral', city.gets_direction('Fourth Avenue', 'Hospital')
     assert_equal 'Outside City', city.gets_direction('Fourth Avenue', 'Cathedral')
     assert_equal 'Hillman', city.gets_direction('Fifth Avenue', 'Museum')

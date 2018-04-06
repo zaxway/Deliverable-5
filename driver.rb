@@ -36,7 +36,8 @@ class Driver
   end
 
   def sets_first_location
-    unless gets_random.nil?
+    nullify = nil
+    unless gets_random == nullify
       gets_location
       add_books_classes_toys
       return true
@@ -45,20 +46,47 @@ class Driver
   end
 
   def sets_diff_location(new_location)
-    if !new_location.nil? &&
+    nullify = nil
+    if new_location != nullify &&
        (new_location == 'Hospital' || new_location == 'Cathedral' ||
         new_location == 'Hillman' || new_location == 'Museum')
       @location = new_location
     end
   end
 
-  def check_if_gone(old_location, new_location)
-    if monroeville(old_location, new_location) ||
-       downtown(old_location, new_location)
-      false
-    else
+  def monroeville(old_local, new_local)
+    # fourth avenue
+    greater = new_local
+    older = old_local
+    if greater == 'Outside City' && older == 'Cathedral'
+      puts "Driver #{@current_driver} has gone to Monroeville!"
+      puts "Driver #{@current_driver} has #{@books} books."
+      puts "Driver #{@current_driver} has #{@dino_toy} dinosaur toys."
+      puts "Driver #{@current_driver} has attended #{@classes} classes."
       true
+    else
+      false
     end
+  end
+
+  def downtown(old_location, new_location)
+    # fifth avenue
+    greater = new_location
+    older = old_location
+    if greater == 'Outside City' && older == 'Hillman'
+      puts "Driver #{@current_driver} has gone to Downtown!"
+      puts "Driver #{@current_driver} has #{@books} books."
+      puts "Driver #{@current_driver} has #{@dino_toy} dinosaur toys."
+      puts "Driver #{@current_driver} has attended #{@classes} classes."
+      true
+    else
+      false
+    end
+  end
+
+  def check_if_gone(old_location, new_location)
+    !(monroeville(old_location, new_location) ||
+    downtown(old_location, new_location))
   end
 
   def moving_driver
@@ -68,12 +96,10 @@ class Driver
     location_arr = city_two.gets_new_location(@location, direction)
     current_local = location_arr[0]
     new_local = location_arr[1]
-    direct = location_arr[2]
     printing_text(location_arr)
     sets_diff_location(new_local)
     add_books_classes_toys
-    tf = check_if_gone(current_local, new_local)
-    tf
+    check_if_gone(current_local, new_local)
   end
 
   def printing_text(location_arr)
@@ -113,35 +139,5 @@ class Driver
 
   def gets_currrent_driver
     @current_driver
-  end
-
-  def monroeville(old_location, new_location)
-    # fourth avenue
-    greater = new_location
-    older = old_location
-    if greater == 'Outside City' && older == 'Cathedral'
-      puts "Driver #{@current_driver} has gone to Monroeville!"
-      puts "Driver #{@current_driver} has #{@books} books."
-      puts "Driver #{@current_driver} has #{@dino_toy} dinosaur toys."
-      puts "Driver #{@current_driver} has attended #{@classes} classes."
-      true
-    else
-      false
-    end
-  end
-
-  def downtown(old_location, new_location)
-    # fifth avenue
-    greater = new_location
-    older = old_location
-    if greater == 'Outside City' && older == 'Hillman'
-      puts "Driver #{@current_driver} has gone to Downtown!"
-      puts "Driver #{@current_driver} has #{@books} books."
-      puts "Driver #{@current_driver} has #{@dino_toy} dinosaur toys."
-      puts "Driver #{@current_driver} has attended #{@classes} classes."
-      true
-    else
-      false
-    end
   end
 end

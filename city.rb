@@ -1,3 +1,4 @@
+require_relative 'Going'
 # Mohit Jain
 # CS 1632
 # This is the city class.
@@ -13,62 +14,30 @@ class City
   end
 
   def gets_new_location(current_location, direction)
+    going = Going.new
     nulled = [nil, nil, nil]
     nulled_function(current_location, direction, nulled)
-    new_location = gets_direction(direction, current_location)
+    new_location = going.gets_direction(direction, current_location)
     new_location_arr = [current_location, new_location, direction]
     new_location_arr
   end
 
   def nulled_function(current_local, direct, nulled)
-    if current_local.nil?
+    nullify = nil
+    current_location = current_local
+    direction = direct
+    if current_location == nullify
       nulled
-    elsif direct.nil?
+    elsif direction == nullify
       randoms = rand(0..3)
       @locations[randoms]
     end
   end
 
-  def gets_direction(directing, current_locals)
-    older = current_locals
-    hello = directing
-    new_location =
-      case hello
-      when 'Fourth Avenue'
-        if older == 'Hospital'
-          'Cathedral'
-        else # older == 'Cathedral'
-          'Outside City'
-        end
-
-      when 'Fifth Avenue'
-        if older == 'Museum'
-          'Hillman'
-        else # older == 'Hillman'
-          'Outside City'
-        end
-
-      when 'Foo St.'
-        if older == 'Hillman'
-          'Hospital'
-        else # older == 'Hospital'
-          'Hillman'
-        end
-
-      when 'Bar St.'
-        if older == 'Cathedral'
-          'Museum'
-        else # older == 'Museum'
-          'Cathedral'
-        end
-      else
-        older
-      end
-    new_location
-  end
-
-  def gets_new_direction(current_location)
-    return nil if current_location.nil?
+  def gets_new_direction(current_local)
+    # nullify = nil
+    current_location = current_local
+    # return nil if current_location == nullify
     new_direction = rand(0..1)
     if current_location == 'Cathedral'
       return @cathedral[new_direction]
